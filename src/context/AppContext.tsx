@@ -37,6 +37,13 @@ import {
   DEFAULT_PREDEFINED_PASSWORD,
   getNextConsecutiveUsername,
 } from '../utils/credentialUtils';
+import { isSupabaseConfigured } from '../lib/supabase';
+import {
+  getPostsFromSupabase,
+  getBusinessesFromSupabase,
+  savePostToSupabase,
+  seedInitialDataToSupabase,
+} from '../services/supabaseService';
 
 interface AppContextType {
   // State
@@ -930,6 +937,41 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [isAdminAuthenticated]);
 
+  // Sincronización automática inicial con Supabase (si está configurado)
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+
+    let isMounted = true;
+    (async () => {
+      try {
+        const [remotePosts, remoteBiz] = await Promise.all([
+          getPostsFromSupabase(),
+          getBusinessesFromSupabase(),
+        ]);
+        if (!isMounted) return;
+        if (remotePosts && remotePosts.length > 0) {
+          setPosts(remotePosts);
+        }
+        if (remoteBiz && remoteBiz.length > 0) {
+          setBusinesses(remoteBiz);
+        }
+
+        // Si la base de datos de Supabase está vacía, la poblamos automáticamente
+        const isDbEmpty = (!remotePosts || remotePosts.length === 0) && (!remoteBiz || remoteBiz.length === 0);
+        if (isDbEmpty) {
+          console.info('Poblando base de datos inicial de Supabase con datos de OleVeci...');
+          await seedInitialDataToSupabase(INITIAL_BUSINESSES, INITIAL_POSTS, READY_PLANS_SEED);
+        }
+      } catch (err) {
+        console.warn('Error sincronizando con Supabase:', err);
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const loginAsAdmin = (password?: string): boolean => {
     if (password && password !== adminProfile.password) {
       return false;
@@ -1676,6 +1718,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     };
 
     setPosts((prev) => [newPost, ...prev]);
+
+    if (isSupabaseConfigured) {
+      savePostToSupabase(newPost).catch((err) => {
+        console.warn('Error guardando publicación en Supabase:', err);
+      });
+    }
 
     // Send push notification simulation
     simulatePushNotification(
