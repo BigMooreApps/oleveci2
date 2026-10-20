@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Post } from '../types';
 import { useApp } from '../context/AppContext';
-import { Clock, Calendar, Film, MapPin, Eye } from 'lucide-react';
+import { Clock, Calendar, Film, MapPin } from 'lucide-react';
 import { parseVideoUrl, ParsedVideoInfo } from '../utils/videoHelper';
 import { getFeedCardImageUrl, getMobileCardImageUrl, getBlurBackdropUrl, getAvatarUrl } from '../utils/imageOptimization';
 
@@ -444,23 +444,6 @@ export const PostCard: React.FC<PostCardProps> = ({
 
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
-          {/* Quick Preview button for image posts on touch devices */}
-          {!post.videoUrl && post.imageUrl && onQuickPeek && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onQuickPeek(post);
-              }}
-              className="absolute top-2 right-2 z-20 px-2 py-0.5 rounded-full bg-black/65 hover:bg-black/85 text-white/95 backdrop-blur-md text-[10px] font-bold border border-white/20 flex items-center gap-1 shadow-sm active:scale-95 transition cursor-pointer"
-              title="Vista previa rápida"
-              aria-label="Vista previa rápida"
-            >
-              <Eye className="w-2.5 h-2.5 text-cyan-300" />
-              <span className="hidden xs:inline">Vista previa</span>
-            </button>
-          )}
-
           {/* Top-Left Discount Badge */}
           {discountPercent ? (
             <div className="absolute top-2 left-2 z-20">
@@ -582,23 +565,6 @@ export const PostCard: React.FC<PostCardProps> = ({
             <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400 font-bold text-xs">
               Sin foto
             </div>
-          )}
-
-          {/* Quick Preview button for image posts on touch devices */}
-          {!post.videoUrl && post.imageUrl && onQuickPeek && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                onQuickPeek(post);
-              }}
-              className="absolute top-1.5 right-1.5 z-20 px-1.5 py-0.5 rounded-full bg-black/65 hover:bg-black/85 text-white/95 backdrop-blur-md text-[9px] font-bold border border-white/20 flex items-center gap-1 shadow-sm active:scale-95 transition cursor-pointer"
-              title="Vista previa rápida"
-              aria-label="Vista previa rápida"
-            >
-              <Eye className="w-2.5 h-2.5 text-cyan-300" />
-              <span className="hidden xs:inline">Vista previa</span>
-            </button>
           )}
 
           {/* Top-Left Discount Badge */}
@@ -820,23 +786,6 @@ export const PostCard: React.FC<PostCardProps> = ({
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/15 pointer-events-none group-hover:opacity-85 transition-opacity duration-300" />
-
-        {/* Quick Preview button for image posts on touch devices */}
-        {!post.videoUrl && post.imageUrl && onQuickPeek && (
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              onQuickPeek(post);
-            }}
-            className="absolute top-2 right-2 z-20 px-2 py-0.5 rounded-full bg-black/65 hover:bg-black/85 text-white/95 backdrop-blur-md text-[10px] font-bold border border-white/20 flex items-center gap-1 shadow-sm active:scale-95 transition cursor-pointer"
-            title="Vista previa rápida"
-            aria-label="Vista previa rápida"
-          >
-            <Eye className="w-2.5 h-2.5 text-cyan-300" />
-            <span className="hidden xs:inline">Vista previa</span>
-          </button>
-        )}
 
         {/* Top-Right Decorative Curve / Swoosh Gradient */}
         <div

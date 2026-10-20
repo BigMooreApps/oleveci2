@@ -343,74 +343,23 @@ export const ReadyPlansView: React.FC<ReadyPlansViewProps> = ({
               posts={posts}
               onClick={() => openPlanModal(plan, 'card')}
               priority={idx < 2}
+              viewMode="grid"
             />
           ))}
         </div>
       ) : (
-        /* LIST VIEW: Compact horizontal cards on mobile and desktop */
+        /* LIST VIEW: Compact horizontal cards matching Descubrir list cards 1:1 */
         <div className="space-y-2.5 sm:space-y-3">
-          {filteredPlans.map((plan, idx) => {
-            const planPosts = resolvePlanPosts(plan, posts);
-
-            return (
-              <div
-                key={plan.id}
-                onClick={() => openPlanModal(plan, 'card')}
-                className="group flex flex-row items-stretch rounded-2xl sm:rounded-3xl overflow-hidden bg-white border border-slate-200/90 shadow-2xs hover:shadow-md hover:border-blue-300 transition-all duration-200 cursor-pointer"
-              >
-                {/* Image Section (Fixed width thumbnail) */}
-                <div className="w-24 xs:w-28 sm:w-40 shrink-0 relative overflow-hidden bg-slate-900 select-none">
-                  <PlanBackgroundImages
-                    posts={planPosts}
-                    bgLayout={plan.bgLayout}
-                    theme={plan.theme}
-                    priority={idx < 2}
-                    targetWidth={280}
-                    imageClassName="group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t sm:bg-gradient-to-r from-slate-950/80 via-transparent to-black/20 pointer-events-none" />
-                  
-                  {/* Stops count pill on thumbnail */}
-                  <div className="absolute top-1.5 left-1.5 sm:top-2.5 sm:left-2.5 z-10">
-                    <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-black/65 backdrop-blur-md text-white text-[9px] sm:text-[10px] font-bold flex items-center gap-1 border border-white/20 shadow-xs">
-                      <Route className="w-2.5 h-2.5 text-cyan-300" strokeWidth={2.4} />
-                      <span>{planPosts.length}</span>
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="p-2.5 sm:p-4 flex-1 min-w-0 flex flex-col justify-between space-y-1 sm:space-y-2">
-                  <div>
-                    <div className="flex items-center justify-between gap-1.5 text-[10px] sm:text-xs">
-                      <span className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-md bg-blue-50 text-[#0056d6] font-bold truncate">
-                        <Calendar className="w-2.5 h-2.5 sm:w-3 sm:h-3 shrink-0" />
-                        <span className="truncate">{plan.scheduledTime}</span>
-                      </span>
-                      <span className="text-slate-400 font-semibold shrink-0">
-                        📍 {plan.municipality}
-                      </span>
-                    </div>
-
-                    <h3 className="text-xs sm:text-base font-black text-[#031c54] group-hover:text-[#0056d6] transition-colors leading-snug line-clamp-1 sm:line-clamp-2 mt-1">
-                      {plan.planTitle}
-                    </h3>
-
-                    <p className="text-[10px] sm:text-xs text-slate-500 line-clamp-1 mt-0.5">
-                      {planPosts.map((p) => p.businessName).join(' • ')}
-                    </p>
-                  </div>
-
-                  {/* Bottom info */}
-                  <div className="pt-1 sm:pt-2 border-t border-slate-100 text-[10px] sm:text-xs">
-                    <span className="text-slate-600 font-medium">
-                      Presupuesto: <strong className="text-[#031c54]">${plan.estimatedBudget.toLocaleString('es-CO')}</strong>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {filteredPlans.map((plan, idx) => (
+            <ReadyPlanCard
+              key={plan.id}
+              plan={plan}
+              posts={posts}
+              onClick={() => openPlanModal(plan, 'card')}
+              priority={idx < 2}
+              viewMode="list"
+            />
+          ))}
         </div>
       )}
 
