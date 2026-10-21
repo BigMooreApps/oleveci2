@@ -950,10 +950,24 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         ]);
         if (!isMounted) return;
         if (remotePosts && remotePosts.length > 0) {
-          setPosts(remotePosts);
+          setPosts((prev) => {
+            const map = new Map(prev.map((p) => [p.id, p]));
+            remotePosts.forEach((rp) => {
+              const existing = map.get(rp.id);
+              map.set(rp.id, existing ? (Object.assign({}, existing, rp) as Post) : rp);
+            });
+            return Array.from(map.values());
+          });
         }
         if (remoteBiz && remoteBiz.length > 0) {
-          setBusinesses(remoteBiz);
+          setBusinesses((prev) => {
+            const map = new Map(prev.map((b) => [b.id, b]));
+            remoteBiz.forEach((rb) => {
+              const existing = map.get(rb.id);
+              map.set(rb.id, existing ? (Object.assign({}, existing, rb) as Business) : rb);
+            });
+            return Array.from(map.values());
+          });
         }
 
         // Si la base de datos de Supabase está vacía, la poblamos automáticamente
@@ -1221,37 +1235,20 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Rule 1: "Una publicación vencida no debe aparecer como activa."
   // Rule 2: "Las promociones vencidas deben desaparecer automáticamente del feed activo."
   // Rule 3: Publicaciones suspendidas o en revisión quedan automáticamente fuera del feed activo
+  // Todos los anuncios se mantienen visibles y persistentes hasta que el usuario o comercio decida borrarlos
   const isPostActive = (post: Post): boolean => {
+    if (!post || !post.id) return false;
     if (
       post.status === 'suspended' ||
       post.suspended ||
-      post.status === 'pending_review' ||
-      post.reviewStatus === 'pending'
+      (post as any).status === 'deleted'
     ) {
-      return false; // Excluded by administrative moderation or pending review!
+      return false; // Excluido por moderación o si fue borrado
     }
 
-    // Rule 1: Una publicación vencida o programada a futuro no debe aparecer como activa en el feed
-    if (post.expiresAt) {
-      const expiryTime = new Date(post.expiresAt).getTime();
-      const now = Date.now();
-      if (expiryTime <= now) {
-        return false; // Vencida
-      }
-    }
-
-    if (post.startsAt) {
-      const startTime = new Date(post.startsAt).getTime();
-      const now = Date.now();
-      if (startTime > now) {
-        return false; // Programada a futuro: no activa en feed aún
-      }
-    }
-
-    // Verify parent business status
+    // Verificar comercio si está explícitamente suspendido
     const parentBiz = businesses.find((b) => b.id === post.businessId);
-    if (!parentBiz) return false;
-    if (parentBiz.status !== 'active') return false;
+    if (parentBiz && parentBiz.status === 'suspended') return false;
 
     return true;
   };

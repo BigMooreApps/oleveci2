@@ -4,17 +4,13 @@ import { SimulatedReadyPlan, resolvePlanPosts } from '../data/readyPlansData';
 import { INITIAL_POSTS } from '../data/seedData';
 import { PlanBackgroundImages, THEMES } from './InvitationCardPreview';
 import { WhatsAppIcon } from './WhatsAppIcon';
-import { FacebookIcon, InstagramIcon, TikTokIcon } from './icons/SocialIcons';
 import {
   formatPostShareText,
   formatBusinessShareText,
   formatPlanShareText,
-  getWhatsAppAppUrl,
   getWhatsAppWebUrl,
-  getFacebookShareUrl,
   downloadPostCardImage,
   downloadDirectImage,
-  shareNativeWithImage,
 } from '../utils/shareUtils';
 import {
   X,
@@ -274,86 +270,45 @@ export const SharePostModal: React.FC<SharePostModalProps> = ({
     ? business?.logo
     : business?.logo || post?.businessLogo || '/Icono_Oleveci_sin_fondo.png?v=clean';
 
-  // 1. WhatsApp Action
-  const handleShareWhatsApp = async () => {
-    if (isMobile && isPost && post) {
-      try {
-        const shared = await shareNativeWithImage(post, { origin, format: 'story' });
-        if (shared) return;
-      } catch {}
+  // 1. WhatsApp Action (Apertura directa nativa en celular sin pedir ventanas emergentes, estilo TikTok/Instagram)
+  const handleShareWhatsApp = () => {
+    const text = shareData.shareMessage;
+    const isMobileDevice =
+      isMobile ||
+      (typeof window !== 'undefined' &&
+        (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768));
+
+    if (isMobileDevice) {
+      // En móvil, la navegación directa a api.whatsapp.com abre la app instalada sin bloquear ventanas emergentes
+      const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+      window.location.href = waUrl;
+    } else {
+      const waUrl = getWhatsAppWebUrl(text);
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
     }
-    const waUrl = isMobile
-      ? getWhatsAppAppUrl(shareData.shareMessage)
-      : getWhatsAppWebUrl(shareData.shareMessage);
-    window.open(waUrl, '_blank', 'noopener,noreferrer');
   };
 
-  // 2. Facebook Action
-  const handleShareFacebook = () => {
-    window.open(
-      getFacebookShareUrl(shareData.url),
-      '_blank',
-      'noopener,noreferrer,width=600,height=520'
-    );
-  };
-
-  // 3. Instagram Action
-  const handleShareInstagram = async () => {
-    setIsDownloading(true);
-    if (isPlan && effectivePlanStops.length > 0) {
-      await downloadCompositePlanImage(cardTitle || 'Itinerario', effectivePlanStops, resolvedPlan?.bgLayout || 'horizontal');
-    } else if (isPost && post) {
-      if (isMobile) {
-        const shared = await shareNativeWithImage(post, { origin, format: 'story' });
-        if (shared) {
-          setIsDownloading(false);
-          return;
-        }
-      }
-      await downloadPostCardImage(post.id, post.title, 'story');
-    } else if (cardImage) {
-      const safeName = (cardTitle || 'oleveci').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 30);
-      await downloadDirectImage(cardImage, `OleVeci_${safeName}.png`);
+  // 1B. Compartir Nativo del Sistema (Bandeja nativa de Android/iOS con WhatsApp, Instagram, Telegram)
+  const canNativeShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+  const handleShareNative = async () => {
+    if (!navigator.share) {
+      handleShareWhatsApp();
+      return;
     }
-    setIsDownloading(false);
-
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(shareData.url);
+      await navigator.share({
+        title: shareData.title,
+        text: shareData.shareMessage,
+        url: shareData.url,
+      });
+    } catch (err: any) {
+      if (err?.name !== 'AbortError') {
+        handleShareWhatsApp();
       }
-    } catch {}
-    showToast('Imagen guardada y enlace copiado para Instagram');
-  };
-
-  // 4. TikTok Action
-  const handleShareTikTok = async () => {
-    setIsDownloading(true);
-    if (isPlan && effectivePlanStops.length > 0) {
-      await downloadCompositePlanImage(cardTitle || 'Itinerario', effectivePlanStops, resolvedPlan?.bgLayout || 'horizontal');
-    } else if (isPost && post) {
-      if (isMobile) {
-        const shared = await shareNativeWithImage(post, { origin, format: 'story' });
-        if (shared) {
-          setIsDownloading(false);
-          return;
-        }
-      }
-      await downloadPostCardImage(post.id, post.title, 'story');
-    } else if (cardImage) {
-      const safeName = (cardTitle || 'oleveci').replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 30);
-      await downloadDirectImage(cardImage, `OleVeci_${safeName}.png`);
     }
-    setIsDownloading(false);
-
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(shareData.url);
-      }
-    } catch {}
-    showToast('Imagen guardada y enlace copiado para TikTok');
   };
 
-  // 5. Copiar Enlace
+  // 2. Copiar Enlace
   const handleCopyLink = async () => {
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -653,117 +608,79 @@ export const SharePostModal: React.FC<SharePostModalProps> = ({
           </div>
 
           {/* ======================================================== */}
-          {/* ACTION BUTTONS (The 6 options: WA, FB, IG, TikTok, Link, Download) */}
+          {/* ACTION BUTTONS (Unified Native Share + Copy & Download) */}
           {/* ======================================================== */}
-          <div className="pt-1">
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2.5 text-center">
-              {/* 1. WhatsApp */}
-              <button
-                type="button"
-                id="btn-share-whatsapp"
-                onClick={handleShareWhatsApp}
-                className="flex flex-col items-center gap-1.5 group cursor-pointer"
-                title="Compartir en WhatsApp (Chat o Estado)"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shadow-lg shadow-[#25D366]/25 group-hover:scale-105 active:scale-95 transition-transform">
-                  <WhatsAppIcon className="w-6 h-6 fill-white" />
-                </div>
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
-                  WhatsApp
-                </span>
-              </button>
+          <div className="pt-2 space-y-2.5">
+            {/* Main Share Button: Native Web Share API (mobile/desktop) or Direct WhatsApp */}
+            <button
+              type="button"
+              id="btn-share-main"
+              onClick={canNativeShare ? handleShareNative : handleShareWhatsApp}
+              className="w-full group relative overflow-hidden py-3 px-4 rounded-2xl bg-gradient-to-r from-[#0056D6] via-[#006ee6] to-[#00C2FF] hover:from-[#004bb8] hover:via-[#005ec8] hover:to-[#00aee6] text-white font-black text-sm uppercase tracking-wider flex items-center justify-center gap-3 shadow-xl shadow-blue-600/30 border border-cyan-300/40 active:scale-[0.98] transition-all duration-200 cursor-pointer"
+            >
+              {/* Luminous sheen effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 pointer-events-none" />
 
-              {/* 2. Facebook */}
-              <button
-                type="button"
-                id="btn-share-facebook"
-                onClick={handleShareFacebook}
-                className="flex flex-col items-center gap-1.5 group cursor-pointer"
-                title="Compartir en el muro de Facebook"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-[#1877F2] text-white flex items-center justify-center shadow-lg shadow-[#1877F2]/25 group-hover:scale-105 active:scale-95 transition-transform">
-                  <FacebookIcon className="w-6 h-6 fill-white" size={24} />
-                </div>
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
-                  Facebook
-                </span>
-              </button>
+              <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform shrink-0">
+                {canNativeShare ? (
+                  <Share2 className="w-4 h-4 text-white stroke-[2.5]" />
+                ) : (
+                  <WhatsAppIcon className="w-4 h-4 fill-white" />
+                )}
+              </div>
 
-              {/* 3. Instagram */}
-              <button
-                type="button"
-                id="btn-share-instagram"
-                onClick={handleShareInstagram}
-                disabled={isDownloading}
-                className="flex flex-col items-center gap-1.5 group cursor-pointer"
-                title="Descargar imagen y copiar link para Instagram"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-rose-500/25 group-hover:scale-105 active:scale-95 transition-transform">
-                  <InstagramIcon className="w-6 h-6 text-white stroke-[2.2]" size={24} />
+              <div className="text-left leading-tight">
+                <div className="font-black text-xs sm:text-sm tracking-wide text-white drop-shadow-sm">
+                  {canNativeShare
+                    ? isPlan
+                      ? 'Compartir Itinerario'
+                      : isBusiness
+                      ? 'Compartir Comercio'
+                      : 'Compartir Publicación'
+                    : 'Compartir en WhatsApp'}
                 </div>
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
-                  Instagram
-                </span>
-              </button>
-
-              {/* 4. TikTok */}
-              <button
-                type="button"
-                id="btn-share-tiktok"
-                onClick={handleShareTikTok}
-                disabled={isDownloading}
-                className="flex flex-col items-center gap-1.5 group cursor-pointer"
-                title="Descargar imagen y copiar link para TikTok"
-              >
-                <div className="w-12 h-12 rounded-2xl bg-black border border-white/20 text-white flex items-center justify-center shadow-lg shadow-black/40 group-hover:scale-105 active:scale-95 transition-transform">
-                  <TikTokIcon className="w-5 h-5 fill-white" size={20} />
+                <div className="text-[10px] font-semibold text-cyan-100/90 tracking-normal normal-case">
+                  {canNativeShare
+                    ? 'WhatsApp, Instagram, historias y contactos'
+                    : 'Abrir chat directo con el enlace'}
                 </div>
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
-                  TikTok
-                </span>
-              </button>
+              </div>
+            </button>
 
-              {/* 5. Copiar Enlace */}
+            {/* Secondary actions: Copiar enlace & Descargar imagen */}
+            <div className="grid grid-cols-2 gap-2">
+              {/* Copiar Enlace */}
               <button
                 type="button"
                 id="btn-copy-link"
                 onClick={handleCopyLink}
-                className="flex flex-col items-center gap-1.5 group cursor-pointer"
+                className="py-2.5 px-3 rounded-xl bg-[#111f36] hover:bg-[#182c4c] border border-white/10 hover:border-cyan-400/30 text-slate-200 hover:text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all cursor-pointer shadow-sm"
                 title="Copiar enlace directo"
               >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-lg transition-all group-hover:scale-105 active:scale-95 ${
-                    copiedLink
-                      ? 'bg-emerald-600 text-white shadow-emerald-600/30 scale-105'
-                      : 'bg-[#007af7] text-white shadow-[#007af7]/25'
-                  }`}
-                >
-                  {copiedLink ? (
-                    <Check className="w-6 h-6 stroke-[3]" />
-                  ) : (
-                    <Link2 className="w-6 h-6" />
-                  )}
-                </div>
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
-                  {copiedLink ? '¡Copiado!' : 'Copiar enlace'}
-                </span>
+                {copiedLink ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-400 stroke-[3]" />
+                    <span className="text-emerald-300 font-extrabold">¡Copiado!</span>
+                  </>
+                ) : (
+                  <>
+                    <Link2 className="w-4 h-4 text-sky-400" />
+                    <span>Copiar enlace</span>
+                  </>
+                )}
               </button>
 
-              {/* 6. Descargar Imagen */}
+              {/* Descargar Imagen */}
               <button
                 type="button"
                 id="btn-download-card"
                 onClick={handleDownloadCard}
                 disabled={isDownloading}
-                className="flex flex-col items-center gap-1.5 group cursor-pointer"
+                className="py-2.5 px-3 rounded-xl bg-[#111f36] hover:bg-[#182c4c] border border-white/10 hover:border-purple-400/30 text-slate-200 hover:text-white font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition-all disabled:opacity-50 cursor-pointer shadow-sm"
                 title="Descargar imagen"
               >
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-indigo-600/25 group-hover:scale-105 active:scale-95 transition-transform">
-                  <Download className="w-6 h-6" />
-                </div>
-                <span className="text-xs font-bold text-slate-200 group-hover:text-white leading-tight">
-                  {isDownloading ? 'Guardando...' : 'Descargar'}
-                </span>
+                <Download className={`w-4 h-4 text-cyan-300 ${isDownloading ? 'animate-bounce' : ''}`} />
+                <span>{isDownloading ? 'Guardando...' : 'Descargar imagen'}</span>
               </button>
             </div>
           </div>

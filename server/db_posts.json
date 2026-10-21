@@ -45,7 +45,8 @@
       "shares": 340
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_smash_combo",
@@ -68,7 +69,7 @@
     "originalPrice": 36000,
     "promotionalPrice": 24900,
     "startsAt": "2026-10-02T12:41:22.333Z",
-    "expiresAt": "2026-10-03T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "¡Hoy hasta las 10:00 PM!",
     "categoryId": "cat_comida_rapida",
     "planCategoryId": "plan_comer_algo",
@@ -91,7 +92,8 @@
       "shares": 14
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_gym_pass",
@@ -114,7 +116,7 @@
     "originalPrice": 45000,
     "promotionalPrice": 20000,
     "startsAt": "2026-10-02T06:41:22.333Z",
-    "expiresAt": "2026-10-07T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Cupos disponibles hoy",
     "categoryId": "cat_fitness",
     "planCategoryId": "plan_cuidado_personal",
@@ -136,7 +138,8 @@
       "shares": 16
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_cafe_origen",
@@ -159,7 +162,7 @@
     "originalPrice": 19500,
     "promotionalPrice": 13900,
     "startsAt": "2026-10-02T14:41:22.333Z",
-    "expiresAt": "2026-10-03T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido hoy hasta las 7:00 PM",
     "categoryId": "cat_cafes",
     "planCategoryId": "plan_tomar_algo",
@@ -181,7 +184,8 @@
       "shares": 11
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_event_cata_vino",
@@ -204,7 +208,7 @@
     "originalPrice": 85000,
     "promotionalPrice": 59000,
     "startsAt": "2026-10-02T14:41:22.333Z",
-    "expiresAt": "2026-10-05T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Viernes y Sábado 7:30 PM",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_noche_rumba",
@@ -228,7 +232,8 @@
       "shares": 34
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_service_barber",
@@ -251,7 +256,7 @@
     "originalPrice": 40000,
     "promotionalPrice": 30000,
     "startsAt": "2026-10-01T16:41:22.333Z",
-    "expiresAt": "2026-10-06T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Precio especial esta semana",
     "categoryId": "cat_belleza",
     "planCategoryId": "plan_cuidado_personal",
@@ -273,7 +278,8 @@
       "shares": 7
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_service_pet_spa",
@@ -296,7 +302,7 @@
     "originalPrice": 48000,
     "promotionalPrice": 35000,
     "startsAt": "2026-10-01T16:41:22.333Z",
-    "expiresAt": "2026-10-08T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Agenda abierta esta semana",
     "categoryId": "cat_mascotas",
     "planCategoryId": "plan_consentir_mascotas",
@@ -318,7 +324,8 @@
       "shares": 12
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_product_bread_box",
@@ -341,7 +348,7 @@
     "originalPrice": 38000,
     "promotionalPrice": 29500,
     "startsAt": "2026-10-01T10:41:22.333Z",
-    "expiresAt": "2026-10-06T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Recién salidos del horno",
     "categoryId": "cat_cafes",
     "planCategoryId": "plan_comprar_algo",
@@ -362,7 +369,8 @@
       "shares": 8
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_chia_promo_brunch",
@@ -385,7 +393,7 @@
     "originalPrice": 42000,
     "promotionalPrice": 28000,
     "startsAt": "2026-10-02T14:41:22.333Z",
-    "expiresAt": "2026-10-04T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido de Viernes a Domingo",
     "categoryId": "cat_cafes",
     "planCategoryId": "plan_relajarme_en_algun_lado",
@@ -406,7 +414,8 @@
       "shares": 15
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_chia_promo_parrilla",
@@ -429,7 +438,7 @@
     "originalPrice": 65000,
     "promotionalPrice": 48000,
     "startsAt": "2026-10-02T12:41:22.333Z",
-    "expiresAt": "2026-10-05T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Parrilla al carbón todo el fin de semana",
     "categoryId": "cat_restaurantes",
     "planCategoryId": "plan_comer_algo",
@@ -450,7 +459,8 @@
       "shares": 22
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_expired_promo_sample",
@@ -473,7 +483,7 @@
     "originalPrice": 38000,
     "promotionalPrice": 22900,
     "startsAt": "2026-10-02T14:48:45.770Z",
-    "expiresAt": "2026-10-06T16:48:45.770Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "¡Promo Reactivada hasta el domingo!",
     "categoryId": "cat_comida_rapida",
     "planCategoryId": "plan_con_amigos",
@@ -495,7 +505,8 @@
       "shares": 25
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_aguardiente_amarillo",
@@ -518,7 +529,7 @@
     "originalPrice": 52000,
     "promotionalPrice": 38900,
     "startsAt": "2026-10-02T13:41:22.333Z",
-    "expiresAt": "2026-10-05T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido Jueves a Domingo tardeo y noche",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_noche_rumba",
@@ -541,7 +552,8 @@
       "shares": 28
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_cocteles_2x1",
@@ -564,7 +576,7 @@
     "originalPrice": 48000,
     "promotionalPrice": 28000,
     "startsAt": "2026-10-02T15:41:22.333Z",
-    "expiresAt": "2026-10-04T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Hoy y mañana de 4:00 PM a 8:30 PM",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_con_amigos",
@@ -587,7 +599,8 @@
       "shares": 24
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_product_ron_caldas",
@@ -610,7 +623,7 @@
     "originalPrice": 95000,
     "promotionalPrice": 75000,
     "startsAt": "2026-10-02T11:41:22.333Z",
-    "expiresAt": "2026-10-09T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Servicio en mesa o para llevar toda la semana",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_noche_rumba",
@@ -633,7 +646,8 @@
       "shares": 18
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_glamping_pareja",
@@ -656,7 +670,7 @@
     "originalPrice": 380000,
     "promotionalPrice": 285000,
     "startsAt": "2026-10-02T08:41:22.333Z",
-    "expiresAt": "2026-10-12T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Tarifa especial para reservas este mes",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_cita_romantica",
@@ -680,7 +694,8 @@
       "shares": 48
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_service_pasadia_hotel",
@@ -703,7 +718,7 @@
     "originalPrice": 85000,
     "promotionalPrice": 62000,
     "startsAt": "2026-10-02T04:41:22.333Z",
-    "expiresAt": "2026-10-16T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Sábados, Domingos y Festivos",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_dia_con_ninos",
@@ -726,7 +741,8 @@
       "shares": 31
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_hotel_chia_colonial",
@@ -749,7 +765,7 @@
     "originalPrice": 240000,
     "promotionalPrice": 179000,
     "startsAt": "2026-10-02T10:41:22.333Z",
-    "expiresAt": "2026-10-17T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Tarifa promocional este mes",
     "categoryId": "cat_planes_eventos",
     "planCategoryId": "plan_cita_romantica",
@@ -772,7 +788,8 @@
       "shares": 19
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_service_lavado_vapor",
@@ -795,7 +812,7 @@
     "originalPrice": 55000,
     "promotionalPrice": 39900,
     "startsAt": "2026-10-02T12:41:22.333Z",
-    "expiresAt": "2026-10-10T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Atención por orden de llegada o cita previa",
     "categoryId": "cat_automoviles",
     "planCategoryId": "plan_cuidar_la_nave",
@@ -818,7 +835,8 @@
       "shares": 22
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_cojineria_ozono",
@@ -841,7 +859,7 @@
     "originalPrice": 160000,
     "promotionalPrice": 119000,
     "startsAt": "2026-10-02T06:41:22.333Z",
-    "expiresAt": "2026-10-14T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "25% de descuento agendando esta semana",
     "categoryId": "cat_automoviles",
     "planCategoryId": "plan_cuidar_la_nave",
@@ -864,7 +882,8 @@
       "shares": 14
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_combo_asado_res",
@@ -887,7 +906,7 @@
     "originalPrice": 135000,
     "promotionalPrice": 98000,
     "startsAt": "2026-10-02T10:41:22.333Z",
-    "expiresAt": "2026-10-06T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido Viernes, Sábado y Domingo",
     "categoryId": "cat_restaurantes",
     "planCategoryId": "plan_comer_algo",
@@ -910,7 +929,8 @@
       "shares": 38
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_product_tomahawk_angus",
@@ -933,7 +953,7 @@
     "originalPrice": 110000,
     "promotionalPrice": 89000,
     "startsAt": "2026-10-02T02:41:22.333Z",
-    "expiresAt": "2026-10-11T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Unidades limitadas por lote de maduración",
     "categoryId": "cat_restaurantes",
     "planCategoryId": "plan_comprar_algo",
@@ -956,7 +976,8 @@
       "shares": 19
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_product_canasta_mercado",
@@ -979,7 +1000,7 @@
     "originalPrice": 78000,
     "promotionalPrice": 59000,
     "startsAt": "2026-10-02T08:41:22.333Z",
-    "expiresAt": "2026-10-08T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Cosecha fresca entregada a domicilio sin costo",
     "categoryId": "cat_servicios",
     "planCategoryId": "plan_comprar_algo",
@@ -1003,7 +1024,8 @@
       "shares": 36
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_lacteos_artesanales",
@@ -1026,7 +1048,7 @@
     "originalPrice": 38000,
     "promotionalPrice": 29500,
     "startsAt": "2026-10-02T14:41:22.333Z",
-    "expiresAt": "2026-10-07T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido hasta agotar existencias del día",
     "categoryId": "cat_servicios",
     "planCategoryId": "plan_comprar_algo",
@@ -1049,7 +1071,8 @@
       "shares": 16
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_burger_texana",
@@ -1072,7 +1095,7 @@
     "originalPrice": 34000,
     "promotionalPrice": 26500,
     "startsAt": "2026-10-02T12:41:22.333Z",
-    "expiresAt": "2026-10-05T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Hoy y todo el fin de semana hasta las 10:00 PM",
     "categoryId": "cat_comida_rapida",
     "planCategoryId": "plan_comer_algo",
@@ -1095,7 +1118,8 @@
       "shares": 20
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_cerveza_nachos",
@@ -1118,7 +1142,7 @@
     "originalPrice": 58000,
     "promotionalPrice": 42000,
     "startsAt": "2026-10-02T14:41:22.333Z",
-    "expiresAt": "2026-10-04T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Viernes y Sábados desde las 4:00 PM",
     "categoryId": "cat_comida_rapida",
     "planCategoryId": "plan_con_amigos",
@@ -1140,7 +1164,8 @@
       "shares": 17
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_matrimonio_parrilla",
@@ -1163,7 +1188,7 @@
     "originalPrice": 46000,
     "promotionalPrice": 34900,
     "startsAt": "2026-10-02T11:41:22.333Z",
-    "expiresAt": "2026-10-06T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Almuerzo y cena todos los días",
     "categoryId": "cat_restaurantes",
     "planCategoryId": "plan_comer_algo",
@@ -1186,7 +1211,8 @@
       "shares": 18
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_desayuno_criollo",
@@ -1209,7 +1235,7 @@
     "originalPrice": 26000,
     "promotionalPrice": 18900,
     "startsAt": "2026-10-02T10:41:22.333Z",
-    "expiresAt": "2026-10-07T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Todos los días de 7:00 AM a 11:30 AM",
     "categoryId": "cat_cafes",
     "planCategoryId": "plan_comer_algo",
@@ -1232,7 +1258,8 @@
       "shares": 23
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_tarde_te_postre",
@@ -1255,7 +1282,7 @@
     "originalPrice": 22000,
     "promotionalPrice": 16500,
     "startsAt": "2026-10-02T14:41:22.333Z",
-    "expiresAt": "2026-10-06T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Tardes de 2:30 PM a 6:30 PM",
     "categoryId": "cat_cafes",
     "planCategoryId": "plan_tomar_algo",
@@ -1278,7 +1305,8 @@
       "shares": 14
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_service_barber_spa_capilar",
@@ -1301,7 +1329,7 @@
     "originalPrice": 45000,
     "promotionalPrice": 32000,
     "startsAt": "2026-10-02T04:41:22.333Z",
-    "expiresAt": "2026-10-09T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Martes a Viernes con cita previa",
     "categoryId": "cat_belleza",
     "planCategoryId": "plan_cuidado_personal",
@@ -1323,7 +1351,8 @@
       "shares": 9
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_gym_pareja_2x1",
@@ -1346,7 +1375,7 @@
     "originalPrice": 160000,
     "promotionalPrice": 99000,
     "startsAt": "2026-10-02T11:41:22.333Z",
-    "expiresAt": "2026-10-12T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Inscripciones abiertas esta semana",
     "categoryId": "cat_fitness",
     "planCategoryId": "plan_con_amigos",
@@ -1369,7 +1398,8 @@
       "shares": 39
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "id": "post_promo_vet_consulta_promo",
@@ -1392,7 +1422,7 @@
     "originalPrice": 50000,
     "promotionalPrice": 35000,
     "startsAt": "2026-10-02T08:41:22.333Z",
-    "expiresAt": "2026-10-08T16:41:22.333Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Lunes a Sábado de 8:00 AM a 6:00 PM",
     "categoryId": "cat_mascotas",
     "planCategoryId": "plan_consentir_mascotas",
@@ -1415,7 +1445,8 @@
       "shares": 21
     },
     "aspectRatio": "9:16",
-    "imageFit": "cover"
+    "imageFit": "cover",
+    "status": "active"
   },
   {
     "businessId": "biz_oleveci",
@@ -1444,7 +1475,7 @@
     "imageScale": 1,
     "imageFit": "cover",
     "startsAt": "2026-10-05T17:25:43.309Z",
-    "expiresAt": "2026-11-05T04:59:59.999Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Horario programado",
     "validitySchedule": {
       "mode": "table",
@@ -1513,7 +1544,8 @@
       "mapsClicks": 0,
       "calls": 0,
       "shares": 0
-    }
+    },
+    "status": "active"
   },
   {
     "businessId": "biz_oleveci",
@@ -1544,7 +1576,7 @@
     "promotionalPrice": 59000,
     "originalPrice": 79000,
     "startsAt": "2026-10-05T19:04:01.739Z",
-    "expiresAt": "2026-11-05T04:59:59.999Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Horario programado",
     "validitySchedule": {
       "mode": "table",
@@ -1613,7 +1645,8 @@
       "mapsClicks": 0,
       "calls": 0,
       "shares": 0
-    }
+    },
+    "status": "active"
   },
   {
     "businessId": "biz_oleveci",
@@ -1644,7 +1677,7 @@
     "promotionalPrice": 55000,
     "originalPrice": 75000,
     "startsAt": "2026-10-05T20:12:59.361Z",
-    "expiresAt": "2026-11-01T04:59:59.999Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido hasta el 31 de Octubre",
     "validitySchedule": {
       "mode": "table",
@@ -1715,7 +1748,8 @@
       "mapsClicks": 0,
       "calls": 0,
       "shares": 0
-    }
+    },
+    "status": "active"
   },
   {
     "businessId": "biz_oleveci",
@@ -1746,7 +1780,7 @@
     "promotionalPrice": 15000,
     "originalPrice": 21000,
     "startsAt": "2026-10-05T21:33:26.953Z",
-    "expiresAt": "2026-11-05T04:59:59.999Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Horario programado",
     "validitySchedule": {
       "mode": "table",
@@ -1815,7 +1849,8 @@
       "mapsClicks": 0,
       "calls": 0,
       "shares": 0
-    }
+    },
+    "status": "active"
   },
   {
     "businessId": "biz_oleveci",
@@ -1846,10 +1881,10 @@
     "promotionalPrice": 25000,
     "originalPrice": 35000,
     "startsAt": "2026-10-05T21:40:00.000Z",
-    "expiresAt": "2026-11-15T04:59:59.999Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido hasta el 15 de Noviembre",
     "validitySchedule": {
-      "mode": "alldays",
+      "mode": "indefinite",
       "scheduleTable": []
     },
     "categoryId": "cat_planes_eventos",
@@ -1868,7 +1903,8 @@
       "mapsClicks": 0,
       "calls": 0,
       "shares": 0
-    }
+    },
+    "status": "active"
   },
   {
     "businessId": "biz_oleveci",
@@ -1899,10 +1935,10 @@
     "promotionalPrice": 30000,
     "originalPrice": 45000,
     "startsAt": "2026-10-05T21:41:00.000Z",
-    "expiresAt": "2026-11-15T04:59:59.999Z",
+    "expiresAt": "2027-10-20T23:59:59.000Z",
     "expiryLabel": "Válido hasta el 15 de Noviembre",
     "validitySchedule": {
-      "mode": "alldays",
+      "mode": "indefinite",
       "scheduleTable": []
     },
     "categoryId": "cat_planes_eventos",
@@ -1921,6 +1957,7 @@
       "mapsClicks": 0,
       "calls": 0,
       "shares": 0
-    }
+    },
+    "status": "active"
   }
 ]

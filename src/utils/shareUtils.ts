@@ -111,6 +111,17 @@ export function getWhatsAppAppUrl(text: string): string {
   return `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
 }
 
+export function openWhatsAppDirect(url: string) {
+  const isMobile =
+    typeof window !== 'undefined' &&
+    (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768);
+  if (isMobile) {
+    window.location.href = url;
+  } else {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+}
+
 export function getFacebookShareUrl(url: string): string {
   return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 }
@@ -247,10 +258,15 @@ export async function sharePostNative(
     }
   }
 
-  const waUrl = options?.preferWeb
-    ? getWhatsAppWebUrl(textToSend)
-    : getWhatsAppAppUrl(textToSend);
-  window.open(waUrl, '_blank', 'noopener,noreferrer');
+  const isMobile =
+    typeof window !== 'undefined' &&
+    (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768);
+
+  const waUrl = isMobile || !options?.preferWeb
+    ? getWhatsAppAppUrl(textToSend)
+    : getWhatsAppWebUrl(textToSend);
+
+  openWhatsAppDirect(waUrl);
   return { method: 'whatsapp', success: true };
 }
 

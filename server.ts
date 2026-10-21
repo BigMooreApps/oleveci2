@@ -1196,7 +1196,10 @@ async function startServer() {
   const isDev = process.env.NODE_ENV !== 'production';
   let vite: any = null;
 
-  app.use(express.static(path.join(process.cwd(), 'public')));
+  app.use(express.static(path.join(process.cwd(), 'public'), {
+    maxAge: isDev ? 0 : '7d',
+    etag: true,
+  }));
 
   if (isDev) {
     vite = await createViteServer({
@@ -1218,7 +1221,11 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
+    app.use(express.static(distPath, {
+      maxAge: '1y',
+      immutable: true,
+      index: false,
+    }));
   }
 
   // Interceptor para servir HTML con Open Graph enriquecido para WhatsApp y redes

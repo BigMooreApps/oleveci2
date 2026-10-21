@@ -139,8 +139,8 @@ const CardVideoPreview: React.FC<CardVideoPreviewProps> = ({
         </div>
       )}
 
-      {/* 2. HTML5 Video Stream Player (Muted, looping, playsInline) */}
-      {canUseNativeVideo && videoSrc ? (
+      {/* 2. HTML5 Video Stream Player (Mounted & streamed ONLY when active/shouldPlay to maximize mobile performance) */}
+      {canUseNativeVideo && videoSrc && shouldPlay ? (
         <video
           ref={videoRef}
           src={videoSrc}
@@ -148,14 +148,14 @@ const CardVideoPreview: React.FC<CardVideoPreviewProps> = ({
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           onLoadedData={() => setVideoLoaded(true)}
           onPlaying={() => {
             setVideoLoaded(true);
             setIsPlaying(true);
           }}
           className={`absolute inset-0 w-full h-full select-none pointer-events-none transition-opacity duration-300 z-1 ${
-            isPlaying || shouldPlay ? 'opacity-100' : posterUrl ? 'opacity-0' : 'opacity-100'
+            isPlaying ? 'opacity-100' : posterUrl ? 'opacity-0' : 'opacity-100'
           } ${(post.videoFit || post.imageFit || 'cover') === 'contain' ? 'object-contain' : 'object-cover'}`}
           style={{
             objectPosition: (post.videoPosition || post.imagePosition) ? `${(post.videoPosition || post.imagePosition)!.x}% ${(post.videoPosition || post.imagePosition)!.y}%` : '50% 50%',
