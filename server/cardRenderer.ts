@@ -24,7 +24,7 @@ const RAW_CACHE_TTL = 1000 * 60 * 60; // 1 hour
 
 // In-memory cache for rendered card image buffers
 const cardCache = new Map<string, { buffer: Buffer; timestamp: number }>();
-const CACHE_TTL_MS = 1000 * 60 * 30; // 30 minutes
+const CACHE_TTL_MS = 1000 * 60 * 60 * 24; // 24 hours
 
 /**
  * Split text into wrapped lines preserving 100% of the words.
@@ -576,9 +576,18 @@ async function renderPublicationCard(
     left: 0,
   });
 
+  // WhatsApp & OpenGraph strictly require images < 300 KB.
+  // Progressive JPEG at 80% quality renders in <50ms and produces ~120-180 KB files.
+  if (isLandscape) {
+    return sharp(bgBuffer)
+      .composite(composites)
+      .jpeg({ quality: 80, progressive: true })
+      .toBuffer();
+  }
+
   return sharp(bgBuffer)
     .composite(composites)
-    .png({ compressionLevel: 5 })
+    .jpeg({ quality: 82, progressive: true })
     .toBuffer();
 }
 
@@ -593,7 +602,7 @@ export async function renderPostCardImage(
   business?: Business | null,
   format: 'card' | 'story' | 'feed' = 'card'
 ): Promise<Buffer> {
-  const cacheKey = `${post.id}_${post.promotionalPrice || ''}_${post.title}_${format}_pub_v16_exact`;
+  const cacheKey = `${post.id}_${post.promotionalPrice || ''}_${post.title}_${format}_pub_v18_jpeg`;
   const cached = cardCache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
     return cached.buffer;

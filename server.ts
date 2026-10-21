@@ -233,7 +233,7 @@ function injectOgMeta(
     <meta property="og:description" content="${escapeHtml(meta.description)}" />
     <meta property="og:image" content="${escapeHtml(ogImage)}" />
     <meta property="og:image:secure_url" content="${escapeHtml(ogImage)}" />
-    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:type" content="${ogImage.endsWith('.png') ? 'image/png' : 'image/jpeg'}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="${escapeHtml(meta.title)}" />
@@ -468,39 +468,52 @@ app.get('/api/posts/:id', (req, res) => {
 });
 
 // Endpoint para servir la imagen exacta del anuncio para WhatsApp y Open Graph (1200x630, historia 9:16 o feed 4:5)
-app.get('/api/og/card/:id.png', async (req, res) => {
+app.get(['/api/og/card/:id.png', '/api/og/card/:id.jpg', '/api/og/card/:id'], async (req, res) => {
   try {
     const rawId = req.params.id || '';
-    const postId = rawId.replace(/\.png$/i, '');
+    const postId = rawId.replace(/\.(png|jpg|jpeg)$/i, '');
     const post = postStore.get(postId);
     if (!post) {
+      const defaultLogo = path.join(process.cwd(), 'public', 'Logo_OleVeci.png');
+      if (fs.existsSync(defaultLogo)) {
+        res.setHeader('Content-Type', 'image/png');
+        return res.sendFile(defaultLogo);
+      }
       return res.status(404).send('Post no encontrado');
     }
     const business = businessStore.get(post.businessId);
     const format = req.query.format === 'story' ? 'story' : req.query.format === 'feed' ? 'feed' : 'card';
     const cardBuffer = await renderPostCardImage(post, business, format);
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Content-Length', cardBuffer.length.toString());
+    res.setHeader('Cache-Control', 'public, max-age=604800, s-maxage=604800, immutable');
     return res.status(200).send(cardBuffer);
   } catch (error) {
     console.error('Error generando tarjeta de anuncio:', error);
+    const rawId = req.params.id || '';
+    const postId = rawId.replace(/\.(png|jpg|jpeg)$/i, '');
+    const fallbackPost = postStore.get(postId);
+    if (fallbackPost?.imageUrl && fallbackPost.imageUrl.startsWith('http')) {
+      return res.redirect(302, fallbackPost.imageUrl);
+    }
     return res.status(500).send('Error generando imagen de tarjeta');
   }
 });
 
 // Endpoint dedicado para descargar o compartir la historia vertical 9:16 (1080x1920) para WhatsApp Status, Instagram Stories y TikTok
-app.get('/api/og/story/:id.png', async (req, res) => {
+app.get(['/api/og/story/:id.png', '/api/og/story/:id.jpg', '/api/og/story/:id'], async (req, res) => {
   try {
     const rawId = req.params.id || '';
-    const postId = rawId.replace(/\.png$/i, '');
+    const postId = rawId.replace(/\.(png|jpg|jpeg)$/i, '');
     const post = postStore.get(postId);
     if (!post) {
       return res.status(404).send('Post no encontrado');
     }
     const business = businessStore.get(post.businessId);
     const cardBuffer = await renderPostCardImage(post, business, 'story');
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Content-Length', cardBuffer.length.toString());
+    res.setHeader('Cache-Control', 'public, max-age=604800, s-maxage=604800, immutable');
     return res.status(200).send(cardBuffer);
   } catch (error) {
     console.error('Error generando historia de anuncio:', error);
@@ -509,18 +522,19 @@ app.get('/api/og/story/:id.png', async (req, res) => {
 });
 
 // Endpoint dedicado para descargar o compartir la publicación vertical 4:5 (1080x1350) para muro de Facebook y feed de Instagram
-app.get('/api/og/feed/:id.png', async (req, res) => {
+app.get(['/api/og/feed/:id.png', '/api/og/feed/:id.jpg', '/api/og/feed/:id'], async (req, res) => {
   try {
     const rawId = req.params.id || '';
-    const postId = rawId.replace(/\.png$/i, '');
+    const postId = rawId.replace(/\.(png|jpg|jpeg)$/i, '');
     const post = postStore.get(postId);
     if (!post) {
       return res.status(404).send('Post no encontrado');
     }
     const business = businessStore.get(post.businessId);
     const cardBuffer = await renderPostCardImage(post, business, 'feed');
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=86400');
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader('Content-Length', cardBuffer.length.toString());
+    res.setHeader('Cache-Control', 'public, max-age=604800, s-maxage=604800, immutable');
     return res.status(200).send(cardBuffer);
   } catch (error) {
     console.error('Error generando publicación para muro:', error);
@@ -1337,7 +1351,7 @@ async function startServer() {
             ogMeta = {
               title: `🎬 ${post.title} · ${post.businessName} | OleVeci`,
               description: metaDesc,
-              image: `${origin}/api/og/card/${post.id}.png?v=${cacheBuster}`,
+              image: `${origin}/api/og/card/${post.id}.jpg`,
               video: videoStreamUrl,
               url: `${origin}/reel/${post.id}`,
               type: 'video.other',
@@ -1346,7 +1360,7 @@ async function startServer() {
             ogMeta = {
               title: `${post.title} · ${post.businessName} | OleVeci`,
               description: metaDesc,
-              image: `${origin}/api/og/card/${post.id}.png?v=${cacheBuster}`,
+              image: `${origin}/api/og/card/${post.id}.jpg`,
               video: videoStreamUrl,
               url: `${origin}/anuncio/${post.id}`,
               type: 'article',
@@ -1384,10 +1398,18 @@ async function startServer() {
         html = fs.readFileSync(distIndexPath, 'utf-8');
       }
 
-      // Inyectar metadatos si coinciden con un anuncio o negocio
-      if (ogMeta) {
-        html = injectOgMeta(html, ogMeta);
+      // Asignar metadatos por defecto para rutas como /explorer, / y demás
+      if (!ogMeta) {
+        ogMeta = {
+          title: 'OleVeci - Negocios locales, más cerca de ti',
+          description: 'Descubre qué hay hoy cerca de ti en OleVeci: promociones, planes, eventos, productos y servicios de comercios locales en tu municipio.',
+          image: `${origin}/Logo_OleVeci.png`,
+          url: `${origin}${urlPath}`,
+          type: 'website',
+        };
       }
+
+      html = injectOgMeta(html, ogMeta);
 
       if (isDev && vite) {
         html = await vite.transformIndexHtml(req.originalUrl, html);
