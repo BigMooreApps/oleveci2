@@ -89,7 +89,7 @@ export default defineConfig(() => {
           short_name: 'OleVeci',
           description: 'Descubre qué hay hoy cerca de ti en OleVeci: promociones, planes, eventos, productos y servicios de comercios locales en tu municipio.',
           theme_color: '#041f5e',
-          background_color: '#F8FAFC',
+          background_color: '#ffffff',
           display: 'standalone',
           start_url: '/',
           scope: '/',
