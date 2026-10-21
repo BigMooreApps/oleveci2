@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import path from 'path';
 import fs from 'fs';
 import crypto from 'crypto';
@@ -14,6 +15,20 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 // Enable reverse proxy trust (Cloud Run, Traefik, Easypanel, Nginx) so HTTPS protocol is detected accurately
 app.enable('trust proxy');
+app.disable('x-powered-by');
+
+// Enable Gzip/Deflate compression for all responses > 1KB (reduces bundle from 1.12MB to ~380KB)
+app.use(compression({
+  threshold: 1024,
+}));
+
+// Basic security headers
+app.use((_req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  next();
+});
 
 app.use(express.json({ limit: '10mb' }));
 

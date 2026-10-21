@@ -341,3 +341,17 @@ svg *:focus-visible {
   outline: none !important;
 }
 
+
+/* Mobile Safe Area Insets (iPhone notch / dynamic island & home bar) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-top {
+  top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  bottom: env(safe-area-inset-bottom, 0px);
+}
